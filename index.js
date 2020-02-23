@@ -40,7 +40,7 @@ function checkUserInArray(req, res, next) {
     next();
 }
 
-const users = ['Diego', 'Leandro', 'Fodase'];
+const users = [];
 
 server.get('/users', (req, res) => res.json(users));
 
