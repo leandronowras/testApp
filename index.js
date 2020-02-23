@@ -1,72 +1,65 @@
-const express = require ('express')
+const express = require('express');
 
-const server = express()
+const server = express();
 
+// Middlewares globais
+server.use(express.json());
 
-//Middlewares globais
-server.use(express.json())
+server.use((req, res, next) => {
+    console.time('Request');
+    console.log(`Metodo usado ${req.method} na url ${req.url}`);
 
-server.use((req,res, next) => {
-    console.time('Request')
-    console.log(`Metodo usado ${req.method} na url ${req.url}`)
+    next();
 
-    next()
+    console.timeEnd('Request');
+});
 
-    console.timeEnd('Request')
-})
+// Middleware local
+function checkUserExist(req, res, next) {
+    if (!req.body.name) {
+        return res.status(400).json({ error: 'User name is required' });
+    }
 
+    next();
+}
 
-//Middleware local
- function checkUserExist (req, res, next) {
-     if(!req.body.name) {
-         return res.status(400).json({ error: 'User name is required'})
-     }
-
-     next()
- }
-
-
- function checkUserInArray (req, res, next) {
+function checkUserInArray(req, res, next) {
     //  Forma direta:
-    //if(!users[req.params.index]) {
+    // if(!users[req.params.index]) {
     //     return res.status(400).json({ error: 'User does not exist'})
     //  }
     // Forma usando uma variavel:
-    const user = users[req.params.index]
+    const user = users[req.params.index];
 
-    if(!users) {
-        return res.status(400).json({ error: 'User does not exist'})
-         }
+    if (!users) {
+        return res.status(400).json({ error: 'User does not exist' });
+    }
 
-         req.user = user //adiciona a nova variavel "req.user" com o valor de user
+    req.user = user; // adiciona a nova variavel "req.user" com o valor de user
 
-     next()
- }
-
-
+    next();
+}
 
 const users = ['Diego', 'Leandro', 'Fodase'];
 
-server.get('/users', (req, res) => {
-    return res.json(users)
-})
+server.get('/users', (req, res) => res.json(users));
 
-server.get('/users/:index', checkUserInArray, (req, res) => {
-   // Sem o middlewarer
+server.get('/users/:index', checkUserInArray, (req, res) =>
+    // Sem o middlewarer
     // const { index } = req.params
 
     // return res.json(users[index])
-    //Com o middleware
-    return res.json(req.user)
-})
+    // Com o middleware
+    res.json(req.user)
+);
 
 server.post('/users', checkUserExist, (req, res) => {
-    const { name } = req.body
+    const { name } = req.body;
 
-    users.push(name)
+    users.push(name);
 
-    return res.json(users)
-})
+    return res.json(users);
+});
 
 server.put('/users/:index', checkUserExist, checkUserInArray, (req, res) => {
     const { index } = req.params;
@@ -74,15 +67,15 @@ server.put('/users/:index', checkUserExist, checkUserInArray, (req, res) => {
 
     users[index] = name;
 
-    return res.json(users)
+    return res.json(users);
 });
 
 server.delete('/users/:index', checkUserInArray, (req, res) => {
-    const index = req.params
+    const index = req.params;
 
-    users.splice(index, 1)
+    users.splice(index, 1);
 
-    return res.send()
-})
+    return res.send();
+});
 
-server.listen(4000)
+server.listen(4000);
