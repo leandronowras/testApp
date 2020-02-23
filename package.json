@@ -1,0 +1,16 @@
+{
+  "name": "desafio02",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "sucrase": "^3.12.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
