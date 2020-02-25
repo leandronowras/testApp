@@ -1,9 +1,9 @@
-const { Router } = require('express');
+import { Router } from 'express';
+
+import UserController from './app/controllers/UserController';
 
 const routes = new Router();
 
-routes.get('/', (req, res) => {
-    return res.json({ message: 'hello world' });
-});
-
-module.exports = routes;
+routes.post('/users', UserController.store); // pessquisar oq store faz
+// toda roda do banco de dados precisa ser await
+export default routes;
