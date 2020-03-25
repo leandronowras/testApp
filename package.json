@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "node -r sucrase/register src/server.js",
+    "dev": "nodemon -r sucrase/register src/server.js",
     "dev:debug": "nodemon --inspect src/server.js"
   },
   "devDependencies": {

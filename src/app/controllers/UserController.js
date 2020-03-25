@@ -10,8 +10,6 @@ class UserController {
             return res.status(400).json({ error: 'User already exists' });
         }
 
-        const user = await User.create(req.body);
-
         const { id, name, email, provider } = await User.create(req.body);
 
         return res.json({
@@ -19,7 +17,13 @@ class UserController {
             name,
             email,
             provider,
-        }); // Retorna pro front end so oq eu botar ai
+        });
+    }
+
+    async update(req, res) {
+        console.log(req.userId);
+
+        return res.json({ ok: true });
     }
 }
 
