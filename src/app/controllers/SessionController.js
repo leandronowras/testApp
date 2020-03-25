@@ -1,3 +1,4 @@
+// faz o login
 import jwt from 'jsonwebtoken';
 import authConfig from '../../config/auth';
 
