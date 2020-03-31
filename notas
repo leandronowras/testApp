@@ -1,8 +1,0 @@
-
-V2.0
-configurando o modelo de pastas para o sequelize (migrations) e fazendo a arquitura de pastas no modelo mvp
-yarn add sequelize, sequelize -cli -D, prettier, eslint
-criar a pasta .editorconfig
-sequelizerc vai exportar os caminhos onde estao as databases, migrations, models e seeds
-no config database.js sao onde ficam as credenciais
-para usar o postgres dessa forma eh necessario instalar as dependencias pg e pg-hstore
